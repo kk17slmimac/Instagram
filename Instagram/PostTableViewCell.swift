@@ -18,6 +18,8 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var likeLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var captionLabel: UILabel!
+    @IBOutlet weak var postButton: UIButton!
+    @IBOutlet weak var commentLabel: UILabel!
     
     
     
@@ -32,6 +34,7 @@ class PostTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    //コメントを表示する処理を追加しラベルに表示させる。
     func setPostData(_ postData: PostData) {
         self.postImageView.image = postData.image
         
@@ -51,10 +54,15 @@ class PostTableViewCell: UITableViewCell {
             let buttonImage = UIImage(named: "like_none")
             self.likeButton.setImage(buttonImage, for: .normal)
         }
+        
+        self.commentLabel.text = "\(postData.commentUserName):\(postData.comment)"
+        
+        
     }
     
     
     @IBAction func addComentButton(_ sender: Any) {
+        //textViewの作成
         //UITextViewのインスタンスを生成
         let textField: UITextField = UITextField()
 //        let textView: UITextView = UITextView()
@@ -73,39 +81,22 @@ class PostTableViewCell: UITableViewCell {
 //        textField.isEditing = true
         //Viewに追加
         self.addSubview(textField)
-        
-        //キーボードに投稿ボタンを作成
-        
-        //完了ボタンの生成
-//        let myButton = UIButton(frame: CGRect(300, 5, 70, 30))
-//        myButton.backgroundColor = UIColor.darkGray
-//        myButton.setTitle("投稿", for: .normal)
-//        myButton.layer.cornerRadius = 2.0
-//        myButton.addTarget(self, action: Selector(("onClickMyButton:")), for: .touchUpInside)
-//
-//        //Viewに完了ボタンを追加する。
-//        myKeyboard.addSubview(myButton)
-//
-//    }
-//
-//    //ボタンを押すとキーボードが下がるメソッド
-//    func onClickMyButton (sender: UIButton) {
-//        self.endEditing(true)
-//    }
-//    //改行押すとキーボードが下がるメソッド
-//    func textFieldReturn(textField: UITextField) -> Bool {
-//        self.endEditing(true)
-//        return false
-//    }
-    
     }
     
-    //【コメントした人の名前をラベルに追加】
-    //【コメントをラベルに追加】
     
     
     
     
+    //投稿ボタンを押した際のアクション
+    @IBAction func postCommentButton(_ sender: Any) {
+        //①ユーザー名を取得
+        //②入力されたコメントを取得
+        //③カンマ区切りの文字列で保存する。
+        
+        
+        
+        
+    }
     
     
     

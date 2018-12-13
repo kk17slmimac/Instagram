@@ -27,27 +27,12 @@ class CommentTableCell: UITableViewCell {
     
     
     func setCommentData(_ commentData: PostData) {
-        
         self.userName.text = "test"
         self.comment.text = "testComment"
         
-//        self.captionLabel.text = "\(postData.name!):\(postData.caption!)"
-//        let likeNumber = postData.likes.count
-//        likeLabel.text = "\(likeNumber)"
-//
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//        let dateString = formatter.string(from: postData.date!)
-//        self.dateLabel.text = dateString
-//
-//        if postData.isLiked{
-//            let buttonImage = UIImage(named: "like_exist")
-//            self.likeButton.setImage(buttonImage, for: .normal)
-//        }else{
-//            let buttonImage = UIImage(named: "like_none")
-//            self.likeButton.setImage(buttonImage, for: .normal)
-//        }
-//    }
+        
+        
+
     
     }
     

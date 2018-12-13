@@ -62,6 +62,22 @@
                             <action selector="addComentButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="077-bc-1fk"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FwD-yS-pyq">
+                        <rect key="frame" x="162" y="547" width="31" height="30"/>
+                        <state key="normal" title="投稿"/>
+                        <connections>
+                            <action selector="postCommentButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hhS-4E-iGg"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ユーザー名：コメント" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ND0-vb-n55">
+                        <rect key="frame" x="30" y="627.5" width="476" height="150"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="150" id="xFs-D6-c4o"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="hhd-S7-cOy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="3Ir-l5-Idx"/>
@@ -70,10 +86,15 @@
                     <constraint firstItem="MJA-1N-zwJ" firstAttribute="leading" secondItem="SUH-Y9-Fwi" secondAttribute="trailing" constant="10" id="DOO-Ee-P0J"/>
                     <constraint firstItem="SUH-Y9-Fwi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="F5k-V5-HgH"/>
                     <constraint firstItem="SUH-Y9-Fwi" firstAttribute="top" secondItem="hhd-S7-cOy" secondAttribute="bottom" constant="10" id="KwH-1Y-N0Z"/>
+                    <constraint firstItem="ND0-vb-n55" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="Lus-Zd-Bx9"/>
+                    <constraint firstItem="FwD-yS-pyq" firstAttribute="top" secondItem="hhd-S7-cOy" secondAttribute="bottom" constant="10" id="MXG-Gz-CD7"/>
+                    <constraint firstItem="FwD-yS-pyq" firstAttribute="leading" secondItem="qb3-eE-cMM" secondAttribute="trailing" constant="10" id="UeM-D1-vqH"/>
                     <constraint firstItem="BP7-AZ-jEe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="ceF-tI-MkK"/>
                     <constraint firstAttribute="trailingMargin" secondItem="hhd-S7-cOy" secondAttribute="trailing" id="dsu-Tj-zFS"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="ND0-vb-n55" secondAttribute="trailing" constant="10" id="kTB-G1-gdx"/>
                     <constraint firstItem="hhd-S7-cOy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="oOV-fj-YCx"/>
                     <constraint firstItem="qb3-eE-cMM" firstAttribute="bottom" secondItem="MJA-1N-zwJ" secondAttribute="bottom" id="rtk-to-6SS"/>
+                    <constraint firstItem="ND0-vb-n55" firstAttribute="top" secondItem="BP7-AZ-jEe" secondAttribute="bottom" constant="10" id="tgO-Fr-9Md"/>
                     <constraint firstItem="MJA-1N-zwJ" firstAttribute="centerY" secondItem="SUH-Y9-Fwi" secondAttribute="centerY" id="uRO-GO-GgI"/>
                     <constraint firstItem="BP7-AZ-jEe" firstAttribute="top" secondItem="SUH-Y9-Fwi" secondAttribute="bottom" constant="10" id="v1u-Q4-LHU"/>
                     <constraint firstItem="qb3-eE-cMM" firstAttribute="leading" secondItem="MJA-1N-zwJ" secondAttribute="trailing" constant="10" id="wRu-c1-iyO"/>
@@ -83,9 +104,11 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="captionLabel" destination="BP7-AZ-jEe" id="oCf-Fz-BCr"/>
+                <outlet property="commentLabel" destination="ND0-vb-n55" id="h8H-FZ-ywL"/>
                 <outlet property="dateLabel" destination="XFE-ni-cfC" id="vq1-zj-f7a"/>
                 <outlet property="likeButton" destination="SUH-Y9-Fwi" id="V9P-N5-CAg"/>
                 <outlet property="likeLabel" destination="MJA-1N-zwJ" id="K5A-ub-YGQ"/>
+                <outlet property="postButton" destination="FwD-yS-pyq" id="8vT-Zi-iY7"/>
                 <outlet property="postImageView" destination="hhd-S7-cOy" id="1uO-vi-MnA"/>
             </connections>
             <point key="canvasLocation" x="40" y="288"/>

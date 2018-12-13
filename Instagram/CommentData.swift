@@ -13,6 +13,7 @@ class commentData: NSObject {
     var comment: String?
     
     
+    
 //    init(snapshot: DataSnapshot, myId: String) {
 //        self.id = snapshot.key
 //

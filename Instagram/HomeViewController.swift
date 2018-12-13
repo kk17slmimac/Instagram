@@ -1,3 +1,4 @@
+
 import UIKit
 import Firebase
 import FirebaseAuth
@@ -21,12 +22,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // テーブルセルのタップを無効にする
         tableView.allowsSelection = false
         
+        //「PostTableViewCell.xib」ファイルに作成したセルの定義内容をUINib(nibName:bundle)で取得します。これをOutletで接続しているTableViewにregisterNib(_:forCellReuseIdentifier:)メソッドで登録します。この時、Identifierは"Cell"としておきます。
         let nib = UINib(nibName: "PostTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
         
-        let nib2 = UINib(nibName: "CommentTableCell", bundle: nil)
-        tableView.register(nib2, forCellReuseIdentifier: "CommentCell")
-
+        //        let nib2 = UINib(nibName: "PostTableViewCell", bundle: nil)
+        //        tableView.register(nib2, forCellReuseIdentifier: "CommentCell")
+        
         
         // テーブル行の高さをAutoLayoutで自動調整する
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -34,6 +36,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // 高さ概算値 = 「縦横比1:1のUIImageViewの高さ(=画面幅)」+「いいねボタン、キャプションラベル、その他余白の高さの合計概算(=100pt)」
         tableView.estimatedRowHeight = UIScreen.main.bounds.width + 100
     }
+    
+    
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -108,24 +114,26 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return postArray.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        // セルを取得してPostDataデータを設定する
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PostTableViewCell
-        if indexPath.row % 2 == 1 {
-            // セルを取得してデータを設定する
-            cell.setPostData(postArray[indexPath.row])
-            
-            // セル内のボタンのアクションをソースコードで設定する
-            cell.likeButton.addTarget(self, action:#selector(handleButton(_:forEvent:)), for: .touchUpInside)
-        }else{
-            let cell2 = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentTableCell
-       return cell2
-        }
+        //PostData オブジェクト (インスタンス) の内容をセル内に配置したイメージやキャプションラベルに反映させる
+        cell.setPostData(postArray[indexPath.row])
+        // セル内のボタンのアクションをソースコードで設定する
+        cell.likeButton.addTarget(self, action:#selector(handleButton(_:forEvent:)), for: .touchUpInside)
+        
+        let cell2 = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PostTableViewCell
+        cell2.setPostData(postArray[indexPath.row])
+        //セル内のボタンのアクションをソースコードで設定する
+        cell2.postButton.addTarget(self, action: #selector(commentButton(_:forEvent:)), for: .touchUpInside)
         
         return cell
+        return cell2
     }
     
-    // セル内のボタンがタップされた時に呼ばれるメソッド
+    
+    // セル内のボタン(likeボタン)がタップされた時に呼ばれるメソッド
     @objc func handleButton(_ sender: UIButton, forEvent event: UIEvent) {
         print("DEBUG_PRINT: likeボタンがタップされました。")
         
@@ -153,12 +161,64 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             } else {
                 postData.likes.append(uid)
             }
-            
             // 増えたlikesをFirebaseに保存する
             let postRef = Database.database().reference().child(Const.PostPath).child(postData.id!)
             let likes = ["likes": postData.likes]
             postRef.updateChildValues(likes)
+        }
+        
+        
+    }
+    
+    
+    
+    // セル内のボタンが押された時に呼ばれるメソッド(投稿ボタンが押された時に呼ばれるメソッド)
+    @objc func commentButton(_ sender: UIButton, forEvent event: UIEvent) {
+        /*
+         このメソッドで実装したいこと
+         ①TextFieldにあるコメントを取得
+         ②現在のログインユーザーを取得
+         ③Firebaseにカンマ区切りで保存する
+         */
+        
+        print("DEBUG_PRINT: commetButtonがタップされました。")
+        
+        //タップされたセルのインデックスを求める
+        //UIEventクラスからタッチされた情報を取得
+        let touch = event.allTouches?.first
+        //UITouchクラスのlocation(in:)メソッドで座標を割り出す。
+        let point = touch!.location(in: self.tableView)
+        let indexPath = tableView.indexPathForRow(at: point)
+        
+        // 現在選択されているセルを取得する
+        let cell = tableView.cellForRow(at: indexPath!)
+        
+        //選択したセルからコメントのデータを取得する
+        let commentString = cell.commentLabel.text
+        
+        // 配列からタップされたインデックスのデータを取り出す
+        let postData = postArray[indexPath!.row]
+        
+        // Firebaseに保存するデータの準備
+        if let uid = Auth.auth().currentUser?.uid {
+            var submitcomment = commentString
+            // コメントとユーザ名をカンマ区切りにしておく
+            let user = Auth.auth().currentUser
+            if let user = user {
+                submitcomment = user.displayName & "," & commentString
+            }
+            
+            // 追加する
+            postData.comentData.append(submitcomment)
+            
+            // 増えたcomentDataをFirebaseに保存する
+            let postRef = Database.database().reference().child(Const.PostPath).child(postData.id!)
+            let comentData = ["comentData": postData.commentData]
+            postRef.updateChildValues(comentData)
             
         }
     }
+    
+    
+    
 }
