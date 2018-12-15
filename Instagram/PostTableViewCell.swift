@@ -6,10 +6,11 @@
 //  Copyright © 2018年 KeiKubota. All rights reserved.
 //
 
-//実装
+//このクラスの役割は？
 
 
 import UIKit
+import  SVProgressHUD
 
 class PostTableViewCell: UITableViewCell {
     
@@ -20,6 +21,11 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var postButton: UIButton!
     @IBOutlet weak var commentLabel: UILabel!
+    @IBOutlet weak var addComentButton: UIButton!
+    
+//    let textField: UITextField = UITextField()
+//    
+//    var commentFlag = false
     
     
     
@@ -30,6 +36,7 @@ class PostTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        
 
         // Configure the view for the selected state
     }
@@ -55,32 +62,48 @@ class PostTableViewCell: UITableViewCell {
             self.likeButton.setImage(buttonImage, for: .normal)
         }
         
-        self.commentLabel.text = "\(postData.commentUserName):\(postData.comment)"
+        
+        //コメントラベルに表示するもの
+       if !postData.commentData.isEmpty {
+       
+        var text = ""
+        for comment in postData.commentData {
+            text += "\(comment)\n"
+//            var commentDataStr = comment.components(separatedBy: ",")
+//            text += "\(commentDataStr[0]):\(commentDataStr[1])"
+        }
+        self.commentLabel.text = text
+        }
         
         
     }
     
     
     @IBAction func addComentButton(_ sender: Any) {
-        //textViewの作成
-        //UITextViewのインスタンスを生成
-        let textField: UITextField = UITextField()
-//        let textView: UITextView = UITextView()
-        //textViewの位置とサイズを設定
-        textField.frame = CGRect(x:10, y:350, width:self.frame.width - 20, height:50)
-        //テキストを設定
-        textField.text = "コメントを入力してください"
-        //フォントの大きさを設定
-        textField.font = UIFont.systemFont(ofSize: 20.0)
-        //textViewの枠線の太さを設定
-        textField.layer.borderWidth = 1
-        //枠線の色をグレーに設定
-        textField.layer.borderColor = UIColor.lightGray.cgColor
-        textField.backgroundColor = UIColor.white
-        //テキストを編集できるように設定
-//        textField.isEditing = true
-        //Viewに追加
-        self.addSubview(textField)
+//        //textViewの作成
+//        //UITextViewのインスタンスを生成
+////        let textField: UITextField = UITextField()
+////        let textView: UITextView = UITextView()
+//        self.textField.isHidden = false
+//        //textViewの位置とサイズを設定
+//        self.textField.frame = CGRect(x:10, y:350, width:self.frame.width - 20, height:50)
+//        //テキストを設定
+//        self.textField.text = "コメントを入力してください"
+//        //フォントの大きさを設定
+//        self.textField.font = UIFont.systemFont(ofSize: 20.0)
+//        //textViewの枠線の太さを設定
+//        self.textField.layer.borderWidth = 1
+//        //枠線の色をグレーに設定
+//        self.textField.layer.borderColor = UIColor.lightGray.cgColor
+//        self.textField.backgroundColor = UIColor.white
+//        //テキストを編集できるように設定
+////        textField.isEditing = true
+//        //Viewに追加
+//        self.addSubview(self.textField)
+//        
+//        //投稿ボタンを押せるようにする。
+//        self.commentFlag = true
+//        self.postButton.isHidden = false
     }
     
     
@@ -89,11 +112,22 @@ class PostTableViewCell: UITableViewCell {
     
     //投稿ボタンを押した際のアクション
     @IBAction func postCommentButton(_ sender: Any) {
-        //①ユーザー名を取得
-        //②入力されたコメントを取得
-        //③カンマ区切りの文字列で保存する。
         
-        
+//        print("投稿ボタン押下")
+//        
+//        if self.commentFlag == true {
+//        
+//        self.textField.isHidden = true
+//     
+//        // HUDで投稿完了を表示する
+//        SVProgressHUD.showSuccess(withStatus: "コメントしました")
+//        
+//        //commentFlagがtrueの時のみ投稿ボタンが出現する
+//        self.commentFlag = false
+//            
+//        }else{
+//            self.postButton.isHidden = true
+//        }
         
         
     }

@@ -31,11 +31,11 @@ class PostViewController: UIViewController {
         // HUDで投稿完了を表示する
         SVProgressHUD.showSuccess(withStatus: "投稿しました")
         
-        // 全てのモーダルを閉じる
+        // 全てのモーダルを閉じて先頭の画面に戻れる
         UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true, completion: nil)
     }
     
-    // キャンセルボタンをタップしたときに呼ばれるメソッド
+    // キャンセルボタンをタップしたときに呼ばれるメソッド。再加工できるように加工画面に戻る
     @IBAction func handleCancelButton(_ sender: Any) {
         // 画面を閉じる
         dismiss(animated: true, completion: nil)
